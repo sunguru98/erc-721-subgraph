@@ -1,0 +1,31 @@
+specVersion: 0.0.2
+description: eip721
+repository: https://github.com/sunguru98/eip-721-subgraph
+schema:
+  file: ./src/schema.gql
+dataSources:
+  - kind: ethereum/contract
+    name: IERC721
+    network: {{name}}
+    source:
+      abi: IERC721
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: IERC721
+          file: ./abis/IERC721.json
+        - name: IERC721Metadata
+          file: ./abis/IERC721Metadata.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/index.ts
