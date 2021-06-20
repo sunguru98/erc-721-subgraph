@@ -6,7 +6,7 @@ const EthDater = require('ethereum-block-by-date');
 
 const { promises: fs } = require('fs');
 
-const ERC1155_FINALIZED_DATE = new Date('06-17-2018').toISOString();
+const ERC721_FINALIZED_DATE = new Date('01-24-2018').toISOString();
 
 const RPCS = {
   xdai: 'https://rpc.xdaichain.com/',
@@ -21,7 +21,7 @@ const RPCS = {
     console.log('GETTING BLOCK NUMBER FOR', rpcKey);
     const rpcProvider = new ethers.providers.JsonRpcProvider(RPCS[rpcKey]);
     const dater = new EthDater(rpcProvider);
-    const block = await dater.getDate(ERC1155_FINALIZED_DATE);
+    const block = await dater.getDate(ERC721_FINALIZED_DATE);
 
     await fs.writeFile(
       path.resolve(__dirname, '../config', `${rpcKey}.json`),
