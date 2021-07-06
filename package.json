@@ -28,7 +28,8 @@
     "deploy:sokol": "yarn prepare:sokol && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-sokol-subgraph",
     "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-xdai-subgraph",
     "create-local": "graph create --node http://127.0.0.1:8020 sunguru98/erc721-subgraph",
-    "deploy-local": "graph deploy --ipfs http://localhost:5001 --node http://127.0.0.1:8020/ sunguru98/erc721-subgraph"
+    "deploy-local": "graph deploy --ipfs http://localhost:5001 --node http://127.0.0.1:8020/ sunguru98/erc721-subgraph",
+    "deploy-all": "yarn deploy:xdai && yarn deploy:sokol && yarn deploy:mainnet && yarn deploy:kovan && yarn deploy:rinkeby"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
