@@ -4,6 +4,7 @@ import {
   Transfer,
   Approval,
   ApprovalForAll,
+  Contract,
 } from '../generated/schema';
 
 import {
@@ -15,11 +16,25 @@ import {
 import { fetchRegistry, fetchToken } from './utils/erc721';
 
 import { events, transactions } from '@amxx/graphprotocol-utils';
+import { log } from '@graphprotocol/graph-ts';
 
 export function handleTransfer(event: TransferEvent): void {
+  log.info('EVENT ADDRESS {}', [event.address.toHex()]);
+  log.info('TRANSFER FROM {} TO {} OF TOKEN ID {} OF TOKEN HEX {}', [
+    event.params.from.toHex(),
+    event.params.to.toHex(),
+    event.params.tokenId.toString(),
+    event.params.tokenId.toHex(),
+  ]);
   let registry = fetchRegistry(event.address);
   if (registry != null) {
+    let contract = Contract.load(event.address.toHex());
+    log.info('CONTRACT ID {} REGISTRY NOT NULL {}', [contract.id, registry.id]);
     let token = fetchToken(registry, event.params.tokenId);
+    log.info('AFTER FETCHING CONTRACT ID {} AS ERC721 {}', [
+      contract.id,
+      contract.asERC721,
+    ]);
     let from = new Account(event.params.from.toHex());
     let to = new Account(event.params.to.toHex());
 
@@ -37,6 +52,12 @@ export function handleTransfer(event: TransferEvent): void {
     ev.from = from.id;
     ev.to = to.id;
     ev.save();
+    log.info('COMPLETED HANDLING TRANSFER EVENT OF TOKEN ID {} AND HEX {}', [
+      event.params.tokenId.toString(),
+      event.params.tokenId.toHex(),
+    ]);
+  } else {
+    log.info('EMPTY REGISTRY', []);
   }
 }
 

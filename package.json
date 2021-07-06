@@ -22,20 +22,22 @@
     "prepare:mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
     "prepare:rinkeby": "mustache config/rinkeby.json subgraph.template.yaml > subgraph.yaml",
     "prepare:kovan": "mustache config/kovan.json subgraph.template.yaml > subgraph.yaml",
-    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-mainnet-subgraph",
+    "deploy:mainnet": "yarn prepare:mainnet && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/mainnet-erc721-subgraph",
     "deploy:kovan": "yarn prepare:kovan && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-kovan-subgraph",
     "deploy:rinkeby": "yarn prepare:rinkeby && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-rinkeby-subgraph",
     "deploy:sokol": "yarn prepare:sokol && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-sokol-subgraph",
-    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-xdai-subgraph"
+    "deploy:xdai": "yarn prepare:xdai && yarn build:all && graph deploy --debug --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ sunguru98/erc721-xdai-subgraph",
+    "create-local": "graph create --node http://127.0.0.1:8020 sunguru98/erc721-subgraph",
+    "deploy-local": "graph deploy --ipfs http://localhost:5001 --node http://127.0.0.1:8020/ sunguru98/erc721-subgraph"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
     "ethereum-block-by-date": "^1.4.0",
-    "ethers": "^5.3.1",
+    "ethers": "^5.4.1",
     "mustache": "^4.2.0"
   },
   "devDependencies": {
-    "@amxx/graphprotocol-utils": "^0.1.0",
+    "@amxx/graphprotocol-utils": "^1.0.0-alpha.7",
     "@graphprotocol/graph-cli": "^0.19.0",
     "@graphprotocol/graph-ts": "^0.19.0",
     "concat": "^1.0.3"
