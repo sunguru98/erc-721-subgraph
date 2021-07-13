@@ -17,11 +17,11 @@ export function fetchToken(registry: TokenRegistry, id: BigInt): Token {
     token.registry = registry.id;
     token.identifier = id;
     token.approval = account_zero.id;
-  }
 
-  let erc721 = IERC721Metadata.bind(Address.fromString(registry.id));
-  let try_tokenURI = erc721.try_tokenURI(id);
-  token.uri = try_tokenURI.reverted ? '' : try_tokenURI.value;
+    let erc721 = IERC721Metadata.bind(Address.fromString(registry.id));
+    let try_tokenURI = erc721.try_tokenURI(id);
+    token.uri = try_tokenURI.reverted ? '' : try_tokenURI.value;
+  }
 
   return token as Token;
 }
